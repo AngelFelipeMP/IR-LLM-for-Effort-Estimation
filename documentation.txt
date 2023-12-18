@@ -1,0 +1,8 @@
+Step 1) clone repo
+    git clone https://github.com/AngelFelipeMP/IR-LLM-for-Effort-Estimation
+    cd IR-LLM-for-Effort-Estimation
+    cd data
+    unzip 3180694.zip
+    unzip Bailey_Peter_07_Dec_2023.zip
+
+Step 2) Install dependencies
