@@ -1,0 +1,15 @@
+##TODO:[] Copy files key-pair GPT
+##TODO:[] create a conda env
+##TODO:[] add money to OpenAI account
+##TODO:[] create a script to run experiments initial test
+##TODO:[] run initial test
+##TODO:[] Scan the paper: UQV100: A Test Collection with Query Variability
+##TODO:[] inspect dataset 
+##TODO:[] Define eval metrics
+##TODO:[] Read document about prompt engineering -> https://platform.openai.com/docs/guides/prompt-engineering
+##TODO:[] plan experiments
+            -> I may explit the back stories into the three categories
+                + Remember 
+                + Understand
+                + Analyze
+##TODO:[] write experiment script
