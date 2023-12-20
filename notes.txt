@@ -1,0 +1,67 @@
+### Prediction/promot approches
+    + Zero shot learning (/prompting)
+    + few shot learning -> (openAI docs: Tactic: Provide examples)
+        + one shot learning
+        + five shot learning
+        + n shot learning
+
+### Models Chats
+    + GPT-3
+    + GPT-3.5
+    + GPT-4
+
+###  Predictions evaluation
+    + OBS: Average T per all query variations 
+    + Full dataset
+    + three categories
+        * Remember 
+        * Understand
+        * Analyze
+
+### visualization
+    + plot the boxplot of T per backstory
+    + plot the boxplot of T per category
+    + plot the boxplot of T per whole dataset
+
+### prompt
+    + include all necessary information/details in the prompt
+    + Provide examples (few shot learning)
+    + Specify the desired length of the output
+    + info from UQV100 paper
+        * effort estimates of how many useful documents they would have to read to satisfy the need.
+        * check:
+            - judging guidelines
+            - the gold hits
+    + prompt itself, it may include:
+        * background history/backstories
+            - Each backstory provides a brief motivating context, hopefully with some degree of realism, 
+            that helps individuals imagine themselves in a similar information-seeking situation and 
+            informs their query and effort responses.
+        * task description
+            - presented the backstory, and then asked the worker to enter the first query they would use
+              to access information via a search engine in response to the backstory, and for estimates of
+              the effort (in terms of number of useful documents, and number of queries) that they 
+              anticipated needing to satisfy the information need
+            - effort estimates using graphical slider widgets ranging from 0 to 101 for the estimate of 
+              the number of useful documents required
+            - a value T, the expected number of useful documents that will be required
+
+### Evaluation
+    + per backstory, we recommend averaging the query-level (in my case T) performance across all query 
+      variations (I guess it query represents a user) belonging to a specific backstory first, and then 
+      averaging these across the 100 backstories (double-averaging)
+
+
+
+### ideas (Now)
+    + Give the model time to "think"
+        * Ask the model to reason before giving a answer
+        * I would need a new prompt for this
+    + Allow models to browser the internet
+        * I would need a new prompt for this
+            - Specify the steps required to complete a task
+
+### ideas (Future)
+    + label the dataset with the action number of necessary documents
+        * we would present n documents to the annotator to get the action number
+

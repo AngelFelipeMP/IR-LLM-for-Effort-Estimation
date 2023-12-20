@@ -1,15 +1,23 @@
-##TODO:[] Copy files key-pair GPT
-##TODO:[] create a conda env
-##TODO:[] add money to OpenAI account
-##TODO:[] create a script to run experiments initial test
-##TODO:[] run initial test
-##TODO:[] Scan the paper: UQV100: A Test Collection with Query Variability
-##TODO:[] inspect dataset 
-##TODO:[] Define eval metrics
-##TODO:[] Read document about prompt engineering -> https://platform.openai.com/docs/guides/prompt-engineering
+##TODO:[X] create a conda env
+##TODO:[X] Copy files key-pair GPT
+##TODO:[X] add money to OpenAI account
+##TODO:[X] inspect files/scripts
+##TODO:[X] create a script to run experiments initial test
+##TODO:[X] run initial test
+##TODO:[X] check openAI documentation for prompt engineering -> https://platform.openai.com/docs/guides/prompt-engineering
+##TODO:[X] Scan the paper: UQV100: A Test Collection with Query Variability
+##TODO:[X] rethink the sequence of Taks/Todos
+##TODO:[] inspect dataset
+            -> check: 
+                + judging guidelines
+                + the gold hits
+##TODO:[] rethink the sequence of Taks/Todos
+##TODO:[] Define eval metrics (I guess regration metrics)
 ##TODO:[] plan experiments
             -> I may explit the back stories into the three categories
                 + Remember 
                 + Understand
                 + Analyze
-##TODO:[] write experiment script
+##TODO:[] write experiment script (small scale run)
+            -> start with aiming to zero shot prompting
+            -> few shot learning

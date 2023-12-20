@@ -8,4 +8,8 @@ Step 2) clone repo
     unzip 3180694.zip
     unzip Bailey_Peter_07_Dec_2023.zip
 
-Step 2) Install dependencies
+Step 3) Install dependencies
+    i) conda env create -f environment.yml
+       conda activate effort-estimation
+
+    ii) pip install -r requirements.txt
