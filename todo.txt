@@ -1,3 +1,9 @@
+##TODO:[X] Read the paper: UQV100: A Test Collection with Query Variability
+##TODO:[X] Read the paper: INST: An Adaptive Metric for Information Retrieval Evaluation
+##TODO:[X] Download Test collection: UQV100
+##TODO:[X] Read the paper: Incorporating User Expectations and Behavior into the Measurement of Search Effectiveness
+##TODO:[X] Create a Git repo (add Sach scripts to the repo)
+##TODO:[X] Get OpenAI account
 ##TODO:[X] create a conda env
 ##TODO:[X] Copy files key-pair GPT
 ##TODO:[X] add money to OpenAI account
@@ -7,17 +13,26 @@
 ##TODO:[X] check openAI documentation for prompt engineering -> https://platform.openai.com/docs/guides/prompt-engineering
 ##TODO:[X] Scan the paper: UQV100: A Test Collection with Query Variability
 ##TODO:[X] rethink the sequence of Taks/Todos
-##TODO:[] inspect dataset
+##TODO:[X] inspect dataset
+            -> Analyze all files in the dataset
             -> check: 
                 + judging guidelines
                 + the gold hits
-##TODO:[] rethink the sequence of Taks/Todos
-##TODO:[] Define eval metrics (I guess regration metrics)
-##TODO:[] plan experiments
-            -> I may explit the back stories into the three categories
-                + Remember 
-                + Understand
-                + Analyze
+##TODO:[X] Talk with Oleg about UQV100 and the collection from "User Variability and IR System Evaluation Peter"
+##TODO:[X] Define eval metrics (I guess regration/classification metrics)
+        -> I must round QueryCountAverage labels (from 2 to 8) for
+            + accuracy
+            + Precision
+            + Recall
+            + F1-micro,macro,weighted
+            + Closeness Evaluation Metric (CEM) (Amigó et al., 2020)
+               - CEM is specifically defined for Ordinal Classification task
+##TODO:[X] rethink the sequence of Taks/Todos
+
+##TODO:[] Plan experiments
+            -> Want tables I want ? create them in excell
+            -> read notes and plan experiments
+
 ##TODO:[] write experiment script (small scale run)
             -> start with aiming to zero shot prompting
             -> few shot learning

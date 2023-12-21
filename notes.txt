@@ -1,3 +1,15 @@
+### Tasks
+    + DocCount: How many documents a single/particular annotetor think he/she will need to read to satisfy his/her information need? (I won't work here)
+    + QueryCountAverage: How many documents i average the annotetor think thery will need to read to satisfy their information need? (I'll work here)
+        * around the labels to the closest integer
+        * with frame the problem as a classification task
+
+### Data 
+    + Relevant documents/files for the experiments
+        * uqv100-backstories.tsv -> contains the backstories
+        * uqv100-query-variations-and-estimates.tsv -> contains the queries and the estimates (T)
+
+
 ### Prediction/promot approches
     + Zero shot learning (/prompting)
     + few shot learning -> (openAI docs: Tactic: Provide examples)
@@ -13,10 +25,6 @@
 ###  Predictions evaluation
     + OBS: Average T per all query variations 
     + Full dataset
-    + three categories
-        * Remember 
-        * Understand
-        * Analyze
 
 ### visualization
     + plot the boxplot of T per backstory
@@ -62,6 +70,17 @@
             - Specify the steps required to complete a task
 
 ### ideas (Future)
+    + ###  Predictions evaluation
+        * three categories
+            - Remember 
+            - Understand
+            - Analyze
+        * Ask T label for the collection X from "User Variability and IR System Evaluation Peter"
+            small scale evaluation
+        * I may use the collection X to fine-tune a ML model and then predic the three class for UQV100
+            Hence, I will be able to carry a large scale evaluation of the UQV100 dataset ( baed on R,U and R)
     + label the dataset with the action number of necessary documents
         * we would present n documents to the annotator to get the action number
+    + I may map "The 6 ratings" to a extimation of the true number of needed documents
+        * So I may avoid use human annotators to create the new labels
 
