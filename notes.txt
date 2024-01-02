@@ -1,86 +1,92 @@
 ### Tasks
-    + DocCount: How many documents a single/particular annotetor think he/she will need to read to satisfy his/her information need? (I won't work here)
-    + QueryCountAverage: How many documents i average the annotetor think thery will need to read to satisfy their information need? (I'll work here)
-        * around the labels to the closest integer
-        * with frame the problem as a classification task
+    + Predict the minimum number of documents that a user will need to read to satisfy his/her information need
+    + We frame the problem as a classification task
+    + Feature/column from dataset/collection: DocCountAverage
+    + Create a Gold label: Round the DocCountAverage to the closest integer (from 2 to 8)
 
-### Data 
-    + Relevant documents/files for the experiments
-        * uqv100-backstories.tsv -> contains the backstories
-        * uqv100-query-variations-and-estimates.tsv -> contains the queries and the estimates (T)
+### Data
+    + UQV100 dataset
+        - Relevant documents/files for the experiments
+            - uqv100-backstories.tsv -> contains the backstories
+            - uqv100-query-variations-and-estimates.tsv -> contains the queries and the estimates (T)
 
-
-### Prediction/promot approches
-    + Zero shot learning (/prompting)
-    + few shot learning -> (openAI docs: Tactic: Provide examples)
+### Approach
+    + Zero-shot learning
+    + few-shot learning -> (openAI docs: Tactic: Provide examples)
         + one shot learning
         + five shot learning
         + n shot learning
 
-### Models Chats
-    + GPT-3
-    + GPT-3.5
-    + GPT-4
+### ML Models
+    + GPT-3/chat
+    + GPT-3.5/chat
+    + GPT-4/chat
 
-###  Predictions evaluation
-    + OBS: Average T per all query variations 
+###  Predictions
     + Full dataset
+    + Predic T's for the 100 backstories
 
-### visualization
-    + plot the boxplot of T per backstory
-    + plot the boxplot of T per category
-    + plot the boxplot of T per whole dataset
+### Evaluation metrics
+        * Accuracy
+        * Precision
+        * Recall
+        * F1-micro, macro and weighted
+        * Closeness Evaluation Metric (CEM) (Amigó et al., 2020)
+            - CEM is defined explicitly for Ordinal Classification tasks
+
+### Outcomes
+    + Results due to Evaluation Metrics
+    + Visualization
+        * plot the boxplot of T per backstory
+            - DocCount
+            - ML model prediction
+        * plot the boxplot of T per the whole dataset
+            - DocCountAverage
+            - ML model prediction
+    + Analyses
+
+### Ideas (Now)
+    + Give the model time to "think"
+        * Ask the model to reason before giving an answer
+            - I would need a new prompt for this
+    + Allow models to browse the internet 
+        * OBS: It becomes a different task; however, contrary to  human annotators, the model will be able to 
+          read a bunch of documents in a short time
+            - I would need a new prompt for this
+            - Specify the steps required to complete a task
+
+### Future work
+    + Predictions evaluation
+        * three categories
+            - Remember 
+            - Understand
+            - Analyze
+        * Ask T label for the collection X from "User Variability and IR System Evaluation Peter"
+            - Small-scale evaluation
+        * I may use collection X to fine-tune an ML model and then predict the three classes for UQV100
+            - I am not sure if 180 samples are enough to fine-tune an ML (DL, transformer, or LLM) model
+            - Hence, I will be able to carry out a large-scale evaluation of the UQV100 dataset ( based on R, U, and R)
+    + Manual labeling of the dataset with the number of necessary documents
+        * we would present n documents to the annotator to get the action number
+    + I may map "The 6 ratings" to an estimation of the true number of needed documents
+        * So I may avoid using human annotators to create the new labels
+
 
 ### prompt
-    + include all necessary information/details in the prompt
-    + Provide examples (few shot learning)
+    + Include all necessary information/details in the prompt
+    + Provide examples (few-shot learning)
     + Specify the desired length of the output
-    + info from UQV100 paper
+    + Info from UQV100 paper
         * effort estimates of how many useful documents they would have to read to satisfy the need.
-        * check:
-            - judging guidelines
-            - the gold hits
     + prompt itself, it may include:
         * background history/backstories
             - Each backstory provides a brief motivating context, hopefully with some degree of realism, 
             that helps individuals imagine themselves in a similar information-seeking situation and 
             informs their query and effort responses.
         * task description
-            - presented the backstory, and then asked the worker to enter the first query they would use
-              to access information via a search engine in response to the backstory, and for estimates of
-              the effort (in terms of number of useful documents, and number of queries) that they 
+            - presented the backstory and then asked the worker to enter the first query they would use
+              to access information via a search engine in response to the backstory and for estimates of
+              the effort (in terms of the number of useful documents and number of queries) that they 
               anticipated needing to satisfy the information need
-            - effort estimates using graphical slider widgets ranging from 0 to 101 for the estimate of 
-              the number of useful documents required
+            - effort estimates using graphical slider widgets ranging from 0 to 101 for the estimation of the number of useful documents required
             - a value T, the expected number of useful documents that will be required
-
-### Evaluation
-    + per backstory, we recommend averaging the query-level (in my case T) performance across all query 
-      variations (I guess it query represents a user) belonging to a specific backstory first, and then 
-      averaging these across the 100 backstories (double-averaging)
-
-
-
-### ideas (Now)
-    + Give the model time to "think"
-        * Ask the model to reason before giving a answer
-        * I would need a new prompt for this
-    + Allow models to browser the internet
-        * I would need a new prompt for this
-            - Specify the steps required to complete a task
-
-### ideas (Future)
-    + ###  Predictions evaluation
-        * three categories
-            - Remember 
-            - Understand
-            - Analyze
-        * Ask T label for the collection X from "User Variability and IR System Evaluation Peter"
-            small scale evaluation
-        * I may use the collection X to fine-tune a ML model and then predic the three class for UQV100
-            Hence, I will be able to carry a large scale evaluation of the UQV100 dataset ( baed on R,U and R)
-    + label the dataset with the action number of necessary documents
-        * we would present n documents to the annotator to get the action number
-    + I may map "The 6 ratings" to a extimation of the true number of needed documents
-        * So I may avoid use human annotators to create the new labels
-

@@ -13,3 +13,8 @@ Step 3) Install dependencies
        conda activate effort-estimation
 
     ii) pip install -r requirements.txt
+
+Step 4) create log directory
+    mkdir logs
+    cd logs
+    mkdir graphics

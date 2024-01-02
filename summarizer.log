@@ -1,12 +1,1 @@
-2023-12-20 11:33:09,438 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
-2023-12-20 11:33:09,439 - ERROR - An error occurred during the OpenAI API call: Error code: 400 - {'error': {'message': "'messages' must contain the word 'json' in some form, to use 'response_format' of type 'json_object'.", 'type': 'invalid_request_error', 'param': 'messages', 'code': None}}
-2023-12-20 11:36:28,701 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
-2023-12-20 11:36:28,704 - ERROR - An error occurred during the OpenAI API call: Error code: 400 - {'error': {'message': "'$.messages[1].content' is invalid. Please check the API reference: https://platform.openai.com/docs/api-reference.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
-2023-12-20 11:38:13,354 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
-2023-12-20 11:38:13,357 - ERROR - An error occurred during the OpenAI API call: Error code: 400 - {'error': {'message': "'$.messages[1].content' is invalid. Please check the API reference: https://platform.openai.com/docs/api-reference.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
-2023-12-20 11:40:32,672 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2023-12-20 11:40:33,887 - ERROR - An error occurred during the OpenAI API call: 'ChatCompletion' object is not subscriptable
-2023-12-20 11:42:08,055 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2023-12-20 11:57:12,386 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2023-12-20 11:57:43,142 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2023-12-20 12:01:43,849 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+

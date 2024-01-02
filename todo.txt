@@ -1,36 +1,35 @@
 ##TODO:[X] Read the paper: UQV100: A Test Collection with Query Variability
 ##TODO:[X] Read the paper: INST: An Adaptive Metric for Information Retrieval Evaluation
-##TODO:[X] Download Test collection: UQV100
 ##TODO:[X] Read the paper: Incorporating User Expectations and Behavior into the Measurement of Search Effectiveness
-##TODO:[X] Create a Git repo (add Sach scripts to the repo)
+##TODO:[X] Download Test collection from UQV100 paper
+##TODO:[X] Download Test collection from INST paper
+##TODO:[X] Create a Git repo 
 ##TODO:[X] Get OpenAI account
+##TODO:[X] Add money to OpenAI account
 ##TODO:[X] create a conda env
 ##TODO:[X] Copy files key-pair GPT
-##TODO:[X] add money to OpenAI account
-##TODO:[X] inspect files/scripts
-##TODO:[X] create a script to run experiments initial test
-##TODO:[X] run initial test
-##TODO:[X] check openAI documentation for prompt engineering -> https://platform.openai.com/docs/guides/prompt-engineering
+##TODO:[X] Install OpenAI API
+##TODO:[X] Write script to teste OpenAI API
+##TODO:[X] Inspect files/scripts
+##TODO:[X] Run initial test
+##TODO:[X] Check openAI documentation for prompt engineering -> https://platform.openai.com/docs/guides/prompt-engineering
 ##TODO:[X] Scan the paper: UQV100: A Test Collection with Query Variability
-##TODO:[X] rethink the sequence of Taks/Todos
-##TODO:[X] inspect dataset
+##TODO:[X] Rethink the sequence of Tasks/Todos
+##TODO:[X] Inspect dataset
             -> Analyze all files in the dataset
             -> check: 
                 + judging guidelines
                 + the gold hits
 ##TODO:[X] Talk with Oleg about UQV100 and the collection from "User Variability and IR System Evaluation Peter"
-##TODO:[X] Define eval metrics (I guess regration/classification metrics)
-        -> I must round QueryCountAverage labels (from 2 to 8) for
-            + accuracy
-            + Precision
-            + Recall
-            + F1-micro,macro,weighted
-            + Closeness Evaluation Metric (CEM) (Amigó et al., 2020)
-               - CEM is specifically defined for Ordinal Classification task
+##TODO:[X] Define eval metrics
 ##TODO:[X] rethink the sequence of Taks/Todos
 
+##TODO: [] Check Label distribution
+
+##COMMENT: Before meeting 1
+
 ##TODO:[] Plan experiments
-            -> Want tables I want ? create them in excell
+            -> We Want tables I want ? create them in excell
             -> read notes and plan experiments
 
 ##TODO:[] write experiment script (small scale run)
