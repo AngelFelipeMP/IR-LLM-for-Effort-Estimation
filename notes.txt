@@ -88,5 +88,6 @@
               to access information via a search engine in response to the backstory and for estimates of
               the effort (in terms of the number of useful documents and number of queries) that they 
               anticipated needing to satisfy the information need
-            - effort estimates using graphical slider widgets ranging from 0 to 101 for the estimation of the number of useful documents required
+            - effort estimates using graphical slider widgets ranging from 0 to 101 for the estimation of 
+              the number of useful documents required
             - a value T, the expected number of useful documents that will be required

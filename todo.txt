@@ -23,10 +23,18 @@
 ##TODO:[X] Talk with Oleg about UQV100 and the collection from "User Variability and IR System Evaluation Peter"
 ##TODO:[X] Define eval metrics
 ##TODO:[X] rethink the sequence of Taks/Todos
+##TODO: [X] Check Label distribution
 
-##TODO: [] Check Label distribution
+##COMMENT: Meeting 1
+##TODO: [X] : Add a coulumn with the 'DocCountSD' / 'AverageSD'
+##TODO: [X] Calculate the distance between the SAD data points and the GLs
+            The GL that yields the smaller absolute values/average will be the GL distribution that 
+            better represents the human annotation
+##TODO: [ ] Create a boxplot for each SAD
+##TODO: [ ] Create bucket to aggregate the labels
+##TODO: [ ] I may change the name of the script to labels_analysis.py
 
-##COMMENT: Before meeting 1
+##COMMENT: Meeting 2
 
 ##TODO:[] Plan experiments
             -> We Want tables I want ? create them in excell
