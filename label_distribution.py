@@ -80,53 +80,81 @@ class UQV100_QUERIES_AND_ESTIMATES:
         self.df.to_csv(LOGS_PATH + '/' + 'uqv100-labels-analysis_29-02-2023.tsv', sep='\t')
         self.df_clustering.to_csv(LOGS_PATH + '/' + 'claster_distance.tsv', sep='\t')
         
-    def boxplot_columns(self):
+    def boxplot_row_columns(self, threshold=False, showfliers=True):
         # Create the figure and axes objects
         fig, axes = plt.subplots(nrows=10, ncols=10, figsize=(20, 20))  # Adjust the size as needed
         axes = axes.flatten()  # Flatten the axes array for easy iteration
 
-        for i, ((data_list, cia, mv), ax) in enumerate(zip(self.df.loc[:,['DocCountList','CloserIntegerToTheAverage', 'MajorityVote']].values.tolist(), axes)):
-                if i < len(self.df):
-                    # Generate boxplot for each list
-                    ax.boxplot(data_list, positions=[1], widths=0.5)
+        if threshold:
+            filtered_doc_count_list = [[value for value in sublist if value <= threshold]
+                                    for sublist in self.df['DocCountList'].tolist()]
+        else:
+            filtered_doc_count_list = self.df['DocCountList'].tolist()
+            
+        closer_integer_to_the_average = self.df['CloserIntegerToTheAverage'].tolist()
+        majority_vote = self.df['MajorityVote'].tolist()
 
-                    # Add additional lines at specified values
-                    ax.axhline(y=cia, color='r', linestyle='--')
-                    ax.axhline(y=mv, color='g', linestyle='-.')
+        # Initialize list for legend handles
+        legend_handles = []
 
-                    # Set title or any other properties for each subplot
-                    ax.set_title(f'Boxplot {i + 1}')
-                    ax.set_xticks([])  # Hide x ticks
+        for i, (data_list, ax) in enumerate(zip(filtered_doc_count_list, axes)):
+            # Generate boxplot for each list
+            bp = ax.boxplot(data_list, positions=[1], widths=0.5, showfliers=showfliers)
+            
+            # Add additional lines at specified values
+            cia_line = ax.axhline(y=closer_integer_to_the_average[i], color='r', linestyle='--', label='Closer Integer to Average')
+            mv_line = ax.axhline(y=majority_vote[i], color='g', linestyle='-.', label='Majority Vote')
 
-        # Adjust layout to prevent overlap
-        plt.tight_layout()
+            # Capture the legend handles on the first iteration to prevent duplicates
+            if i == 0:
+                legend_handles.append(cia_line)
+                legend_handles.append(mv_line)
+
+            # Set title or any other properties for each subplot
+            ax.set_title(f'Backstory {i + 1}')
+            ax.set_xticks([])  # Hide x ticks
+
+        # Place a single legend outside the bottom of the subplots
+        fig.legend(handles=legend_handles, loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0))
         
+        # Adjust layout to prevent overlap with the legend
+        plt.tight_layout(rect=[0, 0.03, 1, 1])
+
         # Save figure
-        plt.savefig(GRAPHICS_PATH + '/boxplots_columns.png')
+        threshold_str = str(threshold) if threshold else ''
+        showfliers_str = '' if showfliers else 'no_outliers'
+        plt.savefig(GRAPHICS_PATH + '/boxplots_row_columns_' + threshold_str + showfliers_str + '.png')
 
         # Display the plot
         plt.show()
         
-    def boxplot_line(self):
-        doc_count_list = self.df['DocCountList'].tolist()
+    def boxplot_single_row(self, threshold=False, showfliers=True):
+        if threshold:
+            doc_count_list = [[value for value in sublist if value <= threshold]
+                                    for sublist in self.df['DocCountList'].tolist()]
+        else:
+            doc_count_list = self.df['DocCountList'].tolist()
+            
         closer_integer_to_the_average = self.df['CloserIntegerToTheAverage'].tolist()
         majority_vote = self.df['MajorityVote'].tolist()
+
 
         # Create the figure and axes object
         fig, ax = plt.subplots(figsize=(20, 10))  # Adjust the size as needed
 
-        # Plot all boxplots on the same axes
+        # Plot all boxplots on the same axes without outliers
         for i, data_list in enumerate(doc_count_list):
             position = i + 1  # Position for the current boxplot
-            ax.boxplot(data_list, positions=[position], widths=0.5)
+            # Set showfliers=False to omit outliers
+            ax.boxplot(data_list, positions=[position], widths=0.5, showfliers=showfliers)
 
             # Add additional lines at specified values from the other two lists
             cia_value = closer_integer_to_the_average[i]
             mv_value = majority_vote[i]
 
-            # Draw lines across the y-axis at the position of the current boxplot
-            ax.plot([position-0.25, position+0.25], [cia_value, cia_value], color='red', linestyle='--')
-            ax.plot([position-0.25, position+0.25], [mv_value, mv_value], color='green', linestyle='-.')
+            # Draw lines across the y-axis at the position of the current boxplot with labels for the legend
+            cia_line, = ax.plot([position-0.25, position+0.25], [cia_value, cia_value], color='red', linestyle='--', label='Closer Integer to Average' if i == 0 else "")
+            mv_line, = ax.plot([position-0.25, position+0.25], [mv_value, mv_value], color='green', linestyle='-.', label='Majority Vote' if i == 0 else "")
 
         # Customize the x-axis to properly space the boxplots
         ax.set_xlim(0, len(doc_count_list) + 1)
@@ -135,58 +163,26 @@ class UQV100_QUERIES_AND_ESTIMATES:
 
         # Optional: rotate the x-axis tick labels if they overlap
         plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+        
+        # Set titles for the axes
+        ax.set_xlabel('Sample (Backstory)', fontsize=12, fontweight='bold')  # Title for the X axis
+        ax.set_ylabel('Annotation distribution', fontsize=12, fontweight='bold')  # Title for the Y axis
 
         # Adjust layout to prevent overlap
         plt.tight_layout()
 
+        # Create the legend only for the first instance of each line type
+        handles, labels = ax.get_legend_handles_labels()
+        if handles:
+            ax.legend(handles=handles, labels=labels)
+
         # Save figure
-        plt.savefig(GRAPHICS_PATH + '/boxplots_line.png')
+        threshold_str = str(threshold) if threshold else ''
+        showfliers_str = '' if showfliers else 'no_outliers'
+        plt.savefig(GRAPHICS_PATH + '/boxplots_sigle_row' + threshold_str + showfliers_str + '.png')
         
         # Display the plot
         plt.show()
-    
-    def boxplot_line_test(self):
-        # Preprocess data by filtering out outliers over 100
-        filtered_doc_count_list = [[value for value in sublist if value <= 40]
-                                for sublist in self.df['DocCountList'].tolist()]
-
-        closer_integer_to_the_average = self.df['CloserIntegerToTheAverage'].tolist()
-        majority_vote = self.df['MajorityVote'].tolist()
-
-        # Create the figure and axes object
-        fig, ax = plt.subplots(figsize=(20, 10))  # Adjust the size as needed
-
-        # Plot all boxplots on the same axes without outliers over 100
-        for i, data_list in enumerate(filtered_doc_count_list):
-            position = i + 1  # Position for the current boxplot
-            ax.boxplot(data_list, positions=[position], widths=0.5)
-
-            # Add additional lines at specified values from the other two lists
-            cia_value = closer_integer_to_the_average[i]
-            mv_value = majority_vote[i]
-
-            # Draw lines across the y-axis at the position of the current boxplot
-            ax.plot([position-0.25, position+0.25], [cia_value, cia_value], color='red', linestyle='--')
-            ax.plot([position-0.25, position+0.25], [mv_value, mv_value], color='green', linestyle='-.')
-
-        # Customize the x-axis to properly space the boxplots
-        ax.set_xlim(0, len(filtered_doc_count_list) + 1)
-        ax.set_xticks(range(1, len(filtered_doc_count_list) + 1))
-        ax.set_xticklabels([f'{i + 1}' for i in range(len(filtered_doc_count_list))])
-
-        # Optional: rotate the x-axis tick labels if they overlap
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
-
-        # Adjust layout to prevent overlap
-        plt.tight_layout()
-        
-        # Save figure
-        plt.savefig(GRAPHICS_PATH + '/boxplots_line_test.png')
-
-        # Display the plot
-        plt.show()
-    
-    
     
     
     def report(self):
@@ -197,53 +193,13 @@ class UQV100_QUERIES_AND_ESTIMATES:
         self.data_transformation()
         self.clasterDistance()
         self.save_data()
-        # self.boxplot_columns()
-        # self.boxplot_line()
-        
-        self.boxplot_line_test()
+        # self.boxplot_row_columns()
+        # self.boxplot_row_columns(threshold=20)
+        # self.boxplot_row_columns(showfliers=False)
+        self.boxplot_single_row()
+        self.boxplot_single_row(threshold=20)
+        self.boxplot_single_row(showfliers=False)
     
 if __name__ == '__main__':
     UQV100 = UQV100_QUERIES_AND_ESTIMATES()
     UQV100.main()
-    
-    
-    
-    
-#     import matplotlib.pyplot as plt
-
-# # Assuming self.df is your dataframe and has 'DocCountList', 'CloserIntegerToTheAverage', 'MajorityVote' as columns
-
-# # Convert your DataFrame columns to lists
-# doc_count_list = self.df['DocCountList'].tolist()
-# closer_integer_to_the_average = self.df['CloserIntegerToTheAverage'].tolist()
-# majority_vote = self.df['MajorityVote'].tolist()
-
-# # Create the figure and axes object
-# fig, ax = plt.subplots(figsize=(20, 10))  # Adjust the size as needed
-
-# # Plot all boxplots on the same axes
-# for i, data_list in enumerate(doc_count_list):
-#     position = i + 1  # Position for the current boxplot
-#     ax.boxplot(data_list, positions=[position], widths=0.5)
-
-#     # Add additional lines at specified values from the other two lists
-#     cia_value = closer_integer_to_the_average[i]
-#     mv_value = majority_vote[i]
-
-#     # Draw lines across the y-axis at the position of the current boxplot
-#     ax.plot([position-0.25, position+0.25], [cia_value, cia_value], color='red', linestyle='--')
-#     ax.plot([position-0.25, position+0.25], [mv_value, mv_value], color='green', linestyle='-.')
-
-# # Customize the x-axis to properly space the boxplots
-# ax.set_xlim(0, len(doc_count_list) + 1)
-# ax.set_xticks(range(1, len(doc_count_list) + 1))
-# ax.set_xticklabels([f'{i + 1}' for i in range(len(doc_count_list))])
-
-# # Optional: rotate the x-axis tick labels if they overlap
-# plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
-
-# # Adjust layout to prevent overlap
-# plt.tight_layout()
-
-# # Display the plot
-# plt.show()
