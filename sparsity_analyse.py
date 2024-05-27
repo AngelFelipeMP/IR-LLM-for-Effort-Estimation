@@ -10,7 +10,7 @@ import numpy as np
 import seaborn as sns
 from PIL import Image
 
-class UQV100_QUERIES_AND_ESTIMATES:
+class UQV100_ANNOTATION_SPARSITY:
     def __init__(self):
         self.query_and_estimates_file = 'uqv100-query-variations-and-estimates.tsv'
         
@@ -51,45 +51,10 @@ class UQV100_QUERIES_AND_ESTIMATES:
             rotated_filename = GRAPHICS_PATH + '/heatmap_rotated.png'
             rotated_img.save(rotated_filename)
 
-        
-    # def histogram(self):
-    #     # Calculate the sum of each column (assuming numerical data)
-    #     column_sums = self.pivot_df.sum(axis=1)
 
-    #     # Create a histogram based on the column sums
-    #     plt.hist(column_sums) # Adjust the number of bins as needed
-
-    #     # Add titles and labels as appropriate
-    #     plt.title('Histogram of Column Sums')
-    #     plt.xlabel('Sum of column values')
-    #     plt.ylabel('Frequency')
-
-    #     # Show the plot
-    #     plt.show()
-        
-    # def histogram(self):
-    #     column_sums = self.pivot_df.sum(axis=1)
-
-    #     # Define bin edges with a step size of 10 units; adjust the range as needed
-    #     # min_sum = column_sums.min()
-    #     # max_sum = column_sums.max()
-    #     # bins = range(int(min_sum), int(max_sum) + 10, 10)
-    #     bins = range(int(0), int(100) + 10, 10)
-
-    #     # Create a histogram with the specified bins
-    #     plt.hist(column_sums, bins=bins, edgecolor='black')
-
-    #     # Add titles and labels
-    #     plt.title('Histogram of worker annotaton')
-    #     plt.xlabel('Samples annotated')
-    #     plt.ylabel('Number of workers')
-
-    #     # Show the plot
-    #     plt.show()
-    
-    def histogram(self):
+    def histo(self):
         column_sums = self.pivot_df.sum(axis=1)
-
+        
         # Define bin edges with a step size of 10 units; adjust the range as needed
         bins = range(0, 101, 10)
 
@@ -122,25 +87,23 @@ class UQV100_QUERIES_AND_ESTIMATES:
         
         # Save the figure before calling plt.show()
         plt.savefig(GRAPHICS_PATH + '/histogram.png', bbox_inches='tight', dpi=300)
+        
     
-    def data_transformation(self):
-        pass
-    
-    def save_data(self):
-        # All backstories
-        self.df.to_csv(LOGS_PATH + '/' + 'uqv100-sparsity-analysis_09-05-2024.tsv', sep='\t')
-
-    def report(self):
-        pass
+    def annatation_analyses(self):
+        annotations = np.array(self.pivot_df.sum(axis=1))
+        samples_not_annotated = 100 - annotations
+        sparcity_ration = np.sum(samples_not_annotated)/ len(samples_not_annotated)
+        print(f'Spacity Ration: {round(sparcity_ration,2)} %')
+        print(f'Worker Average Number of Annotation {100 - round(sparcity_ration,2)} %')
+        
         
     def main(self):
         self.load_data()
         self.annotation_matrix()
         self.heatmap()
-        self.histogram()
-        # self.data_transformation()
-        # self.save_data()
+        self.histo()
+        self.annatation_analyses()
     
 if __name__ == '__main__':
-    UQV100 = UQV100_QUERIES_AND_ESTIMATES()
+    UQV100 = UQV100_ANNOTATION_SPARSITY()
     UQV100.main()
