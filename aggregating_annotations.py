@@ -35,6 +35,10 @@ class UQV100_GOLD_LABELS_AGGREGATION:
         self.gold_df['CIA'] = self.df.groupby('UQV100Id')['DocCountAverage'].first().round()
         self.gold_df['CIA'] = self.gold_df['CIA'].astype(int)
         
+    def braylan_lease(self):
+        ##TODO Load aggregated annotations
+        pass
+        
         
     def main(self):
         self.load_data()

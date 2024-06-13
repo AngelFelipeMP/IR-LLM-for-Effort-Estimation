@@ -6,3 +6,4 @@ UQV100_DATA_PATH = DATA_PATH + '/3180694'
 
 LOGS_PATH = REPO_PATH + '/logs'
 GRAPHICS_PATH = LOGS_PATH + '/graphics'
+AGGREGATED_ANNOTATIONS = LOGS_PATH + '/aggregated_annotations'
