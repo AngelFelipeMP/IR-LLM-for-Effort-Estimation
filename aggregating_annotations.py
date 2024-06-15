@@ -29,24 +29,33 @@ class UQV100_GOLD_LABELS_AGGREGATION:
         
     def median(self):
         self.gold_df['Median'] = self.df.groupby('UQV100Id')['DocCount'].apply(lambda x: x.median())
-        self.gold_df['Median'] = self.gold_df['Media'].astype(int)
+        self.gold_df['Median'] = self.gold_df['Median'].astype(int)
         
     def closer_integer_to_the_average(self):
         self.gold_df['CIA'] = self.df.groupby('UQV100Id')['DocCountAverage'].first().round()
         self.gold_df['CIA'] = self.gold_df['CIA'].astype(int)
         
     def braylan_lease(self):
-        ##TODO Load aggregated annotations
-        pass
+        braylan_lease_df = pd.read_csv(AGGREGATED_ANNOTATIONS + '/' + 'braylan_lease_aggregated_annotations' + '.tsv', 
+                                        sep='\t',
+                                        index_col='UQV100Id')
+        
+        self.gold_df = pd.concat([self.gold_df, braylan_lease_df], axis=1)
+        ic(self.gold_df.head())
+        ic(self.gold_df.shape)
+        
+    def save(self):
+        self.gold_df.to_csv(AGGREGATED_ANNOTATIONS + '/' + 'aggregated_annotations.tsv', sep='\t')
         
         
     def main(self):
         self.load_data()
         self.gold_labels_dataframe()
-        self.first_value()
         self.majority_vote()
         self.median()
         self.closer_integer_to_the_average()
+        self.braylan_lease()
+        self.save()
 
 if __name__ == '__main__':
     UQV100 = UQV100_GOLD_LABELS_AGGREGATION()
