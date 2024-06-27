@@ -71,6 +71,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
 
     def process_data(self):
         self.df_seaborn = self.df.copy()
+        self.df_seaborn = self.df_seaborn[['MV', 'CIA', 'Median','BAU', 'SAD', 'MAS']]
         
         # Use melt to transform the DataFrame
         self.df_seaborn =  self.df_seaborn.reset_index().melt(id_vars=['UQV100Id'], var_name='Aggregation Method', value_name='Category')

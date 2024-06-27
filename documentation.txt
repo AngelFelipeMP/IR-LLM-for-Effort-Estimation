@@ -18,3 +18,12 @@ Step 4) create log directory
     mkdir logs
     cd logs
     mkdir graphics
+
+
+Step i)
+    cd annotationmodeling
+    uqv100_aggregating_annotations.py
+    cd ..
+
+Step i+1)
+    aggregating_annotations.py
