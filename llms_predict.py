@@ -33,8 +33,8 @@ class PROMPT:
     def ZeroShot(self, backstory):
         context = '''BACKSTORY: ''' + backstory
         task = '''TASK: Predict the number of necessary documents to attend the user needs for the BACKSTORY. '''
-        constraint_1 = '''1) You/the system must output single character.'''
-        constraint_2 = '''2) The character must be a integer to solve the task.'''
+        constraint_1 = '''1) You/the system must output a single character.'''
+        constraint_2 = '''2) The character must be an integer to solve the task.'''
         constraint_3 = '''3) You/the system must not output any text/characters apart from the number.'''
         output_constraint = '''CONSTRAINTS: ''' + '\n' + constraint_1 + '\n' + constraint_2 + '\n' + constraint_3
         return context + '\n' + task + '\n' + output_constraint

@@ -71,7 +71,10 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
 
     def process_data(self):
         self.df_seaborn = self.df.copy()
-        self.df_seaborn = self.df_seaborn[['MV', 'CIA', 'Median','BAU', 'SAD', 'MAS']]
+        columns = self.df_seaborn.columns
+        first_cols = ['MV', 'CIA', 'Median', 'BAU', 'SAD', 'MAS']
+        self.df_seaborn = self.df_seaborn[first_cols + [col for col in columns if col not in first_cols]]
+        # self.df_seaborn = self.df_seaborn[['MV', 'CIA', 'Median','BAU', 'SAD', 'MAS']]
         
         # Use melt to transform the DataFrame
         self.df_seaborn =  self.df_seaborn.reset_index().melt(id_vars=['UQV100Id'], var_name='Aggregation Method', value_name='Category')
@@ -96,7 +99,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
         
         plt.title('Aggregated Methods')
         
-        plt.savefig(GRAPHICS_PATH + '/histogram_all_agregation_methods'+'.png', bbox_inches='tight', dpi=300)
+        plt.savefig(GRAPHICS_PATH + '/histogram_all_agregation_methods'+'.png', bbox_inches='tight', dpi=350)
         plt.show()
         
         
@@ -104,12 +107,18 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
         sns.catplot(data=self.df_seaborn, x="Aggregation Method", y="Category", kind="box")
         plt.title('Boxplot')
         
-        plt.savefig(GRAPHICS_PATH + '/boxplot_all_agregation_methods'+'.png', bbox_inches='tight', dpi=300)
+        # Rotate x-axis labels
+        plt.xticks(rotation=30)
+        
+        plt.savefig(GRAPHICS_PATH + '/boxplot_all_agregation_methods'+'.png', bbox_inches='tight', dpi=350)
         plt.show()
         
     def multi_data_violin(self):
         sns.catplot(data=self.df_seaborn, x="Aggregation Method", y="Category", kind="violin")
         plt.title('Violin')
+        
+        # Rotate x-axis labels
+        plt.xticks(rotation=30)
         
         plt.savefig(GRAPHICS_PATH + '/violin_all_agregation_methods'+'.png', bbox_inches='tight', dpi=300)
         plt.show()

@@ -1,14 +1,14 @@
 import pandas as pd
 from config import *
-from icecream import ic
-from collections import Counter
-import numpy as np
+# from icecream import ic
+# from collections import Counter
+# import numpy as np
 from scipy.stats import f_oneway, tukey_hsd
+import scipy
 
 class UQV100_GOLD_LABELS_STATISTICAL_TEST:
     def __init__(self):
         self.gold_labels_path = AGGREGATED_ANNOTATIONS + '/' + 'aggregated_annotations' + '.tsv'
-        # print(scipy.__version__)
         
     def load_data(self):
         self.df = pd.read_csv(self.gold_labels_path, 
