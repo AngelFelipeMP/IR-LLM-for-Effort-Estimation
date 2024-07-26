@@ -8,3 +8,6 @@ LOGS_PATH = REPO_PATH + '/logs'
 GRAPHICS_PATH = LOGS_PATH + '/graphics'
 AGGREGATED_ANNOTATIONS = LOGS_PATH + '/aggregated_annotations'
 LLMS_PREDICTIONS = LOGS_PATH + '/llms_predictions'
+
+FAST_DAWID_SKENE_REPO = REPO_PATH + '/Fast-Dawid-Skene'
+FAST_DAWID_SKENE_DATA = FAST_DAWID_SKENE_REPO + '/data'

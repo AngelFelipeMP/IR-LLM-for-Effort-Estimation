@@ -37,7 +37,10 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
         # Set a seed for reproducibility
         np.random.seed(8)
         
-        for column in self.df.columns:
+        # Get the Set3 color palette
+        palette = sns.color_palette("Set3", len(self.df.columns))
+        
+        for i, column in enumerate(self.df.columns):
 
             annotations = self.df[column].to_list()
             
@@ -45,10 +48,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
             mean_val = np.mean(annotations)
             median_val = np.median(annotations)
             
-            # Generate a random color for the bars
-            color = np.random.rand(3,)
-            
-            ax = sns.histplot(annotations,  discrete=True,  zorder=5, color=color)
+            ax = sns.histplot(annotations,  discrete=True,  zorder=5, color=palette[i])
             
             # Add mean and median lines to the histogram
             ax.axvline(mean_val, color='red', linestyle='--', linewidth=0.5, label=f'Mean: {mean_val:.2f}')
@@ -56,6 +56,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
             
             plt.title('(' + column + ')' + ' Aggregated annotations')
             plt.xlabel('Gold labels')
+            plt.xticks(range(sorted(set(annotations))[0], sorted(set(annotations))[-1] +1))
             plt.yticks(range(0, 70, 10))
             
             # Display light grey horizontal grid lines across the plot
@@ -72,7 +73,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
     def process_data(self):
         self.df_seaborn = self.df.copy()
         columns = self.df_seaborn.columns
-        first_cols = ['MV', 'CIA', 'Median', 'BAU', 'SAD', 'MAS']
+        first_cols = ['MV', 'CIA', 'Median', 'BAU', 'SAD', 'MAS', 'FDS']
         self.df_seaborn = self.df_seaborn[first_cols + [col for col in columns if col not in first_cols]]
         # self.df_seaborn = self.df_seaborn[['MV', 'CIA', 'Median','BAU', 'SAD', 'MAS']]
         
@@ -104,7 +105,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
         
         
     def multi_data_boxplot(self):
-        sns.catplot(data=self.df_seaborn, x="Aggregation Method", y="Category", kind="box")
+        sns.catplot(data=self.df_seaborn, x="Aggregation Method", y="Category", kind="box", palette="Set3")
         plt.title('Boxplot')
         
         # Rotate x-axis labels
@@ -114,7 +115,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
         plt.show()
         
     def multi_data_violin(self):
-        sns.catplot(data=self.df_seaborn, x="Aggregation Method", y="Category", kind="violin")
+        sns.catplot(data=self.df_seaborn, x="Aggregation Method", y="Category", kind="violin", palette="Set3")
         plt.title('Violin')
         
         # Rotate x-axis labels
