@@ -19,7 +19,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
                                 sep='\t', 
                                 index_col='UQV100Id')
         
-        self.df.rename(columns={'MajorityVote': 'MV'}, inplace=True)
+        # self.df.rename(columns={'MajorityVote': 'MV'}, inplace=True)
         
     def add_MAS_modified_column(self):
         with open(AGGREGATED_ANNOTATIONS + '/' + 'braylan_lease_MAS_first' + '.json', 'r') as f:

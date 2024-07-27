@@ -28,7 +28,8 @@ class UQV100_GOLD_LABELS_AGGREGATION:
         self.gold_df.set_index('UQV100Id', inplace=True)
     
     def majority_vote(self):
-        self.gold_df['MajorityVote'] = self.df.groupby('UQV100Id')['DocCount'].apply(lambda x: x.mode().iloc[0])
+        # self.gold_df['MajorityVote'] = self.df.groupby('UQV100Id')['DocCount'].apply(lambda x: x.mode().iloc[0])
+        self.gold_df['MV'] = self.df.groupby('UQV100Id')['DocCount'].apply(lambda x: x.mode().iloc[0])
         
     def median(self):
         self.gold_df['Median'] = self.df.groupby('UQV100Id')['DocCount'].apply(lambda x: x.median())
@@ -92,8 +93,8 @@ class UQV100_GOLD_LABELS_AGGREGATION:
         self.load_data()
         self.gold_labels_dataframe()
         self.majority_vote()
-        self.median()
         self.closer_integer_to_the_average()
+        self.median()
         self.braylan_lease()
         self.adapt_data_fast_dawid_skene()
         self.fast_dawid_skene()
