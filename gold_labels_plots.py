@@ -12,6 +12,7 @@ import json
 class UQV100_GOLD_LABELS_HISTOGRAM:
     def __init__(self):
         self.gold_labels_path = AGGREGATED_ANNOTATIONS + '/' + 'aggregated_annotations' + '.tsv'
+        self.graphics_path = GRAPHICS_PATH
         
         
     def load_data(self):
@@ -64,7 +65,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
             ax.legend()
             
             # save plot
-            plt.savefig(GRAPHICS_PATH + '/histogram_'+ column +'.png', bbox_inches='tight', dpi=300)
+            plt.savefig(self.graphics_path + '/histogram_'+ column +'.png', bbox_inches='tight', dpi=300)
             
             # show plot
             plt.show()
@@ -100,7 +101,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
         
         plt.title('Aggregated Methods')
         
-        plt.savefig(GRAPHICS_PATH + '/histogram_all_agregation_methods'+'.png', bbox_inches='tight', dpi=350)
+        plt.savefig(self.graphics_path + '/histogram_all_agregation_methods'+'.png', bbox_inches='tight', dpi=350)
         plt.show()
         
         
@@ -111,7 +112,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
         # Rotate x-axis labels
         plt.xticks(rotation=30)
         
-        plt.savefig(GRAPHICS_PATH + '/boxplot_all_agregation_methods'+'.png', bbox_inches='tight', dpi=350)
+        plt.savefig(self.graphics_path + '/boxplot_all_agregation_methods'+'.png', bbox_inches='tight', dpi=350)
         plt.show()
         
     def multi_data_violin(self):
@@ -121,7 +122,7 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
         # Rotate x-axis labels
         plt.xticks(rotation=30)
         
-        plt.savefig(GRAPHICS_PATH + '/violin_all_agregation_methods'+'.png', bbox_inches='tight', dpi=300)
+        plt.savefig(self.graphics_path + '/violin_all_agregation_methods'+'.png', bbox_inches='tight', dpi=300)
         plt.show()
     
     
@@ -137,47 +138,3 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
 if __name__ == '__main__':
     UQV100 = UQV100_GOLD_LABELS_HISTOGRAM()
     UQV100.main()
-    
-    
-    
-    
-    
-    
-    
-    # def Multi_data_barplot(self):
-    #     species = sorted(pd.unique(self.df.values.ravel()))
-    #     penguin_means = {column:[] for column in self.df.columns}
-        
-    #     for column in self.df.columns:
-    #         column_labels = self.df[column].value_counts().sort_index().to_dict()
-            
-    #         for label in species:
-    #             if label not in column_labels.keys():
-    #                 penguin_means[column].append(0)
-                    
-    #             else:
-    #                 penguin_means[column].append(column_labels[label])
-                    
-
-    #     x = np.arange(len(species))  # the label locations
-    #     width = 0.15  # the width of the bars
-    #     multiplier = 0
-
-    #     fig, ax = plt.subplots()
-
-    #     for attribute, measurement in penguin_means.items():
-    #         offset = width * multiplier
-    #         rects = ax.bar(x + offset, measurement, width, label=attribute)
-    #         # ax.bar_label(rects, padding=3)
-    #         multiplier += 1
-
-    #     # Add some text for labels, title and custom x-axis tick labels, etc.
-    #     ax.set_ylabel('Length (mm)')
-    #     ax.set_title('Penguin attributes by species')
-    #     ax.set_xticks(x + width)
-    #     ax.set_xticklabels(species)
-    #     ax.legend(loc='upper left', ncol=3)
-    #     ax.set_ylim(0, 70)
-    #     ax.set_xlim(species[0], species[-1])
-
-    #     plt.show()
