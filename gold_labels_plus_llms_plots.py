@@ -40,9 +40,12 @@ class UQV100_GOLD_LABELS_PLUST_LLMS_HISTOGRAM(UQV100_GOLD_LABELS_HISTOGRAM):
     def __init__(self):
         super().__init__()
         self.llms_pred_path = LLMS_PREDICTIONS
+        ##TODO: add a setting parameters fuction to choose prompt type
+        self.prompt_type = 'ZeroShot'
     
     def load_llms_preds(self):
-        tsv_files = glob.glob(os.path.join(self.llms_pred_path, "*.tsv"))
+        tsv_files = glob.glob(os.path.join(self.llms_pred_path, "*"+ self.prompt_type + ".tsv"))
+        # tsv_files = glob.glob(os.path.join(self.llms_pred_path, "*.tsv"))
         df_llms = [pd.read_csv(tsv_file, sep='\t', index_col=0) for tsv_file in tsv_files]
         self.llms_preds_df = pd.concat(df_llms, axis=1)
         

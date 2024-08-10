@@ -20,11 +20,10 @@ class UQV100_BUCKETING_PREDS(UQV100_GOLD_LABELS_STATISTICAL_TEST, UQV100_GOLD_LA
         df = self.bucketing(bins, labels)
         self.save_bucketed_data(df, ending)
     
-    
     def bucketing(self, bins, labels):
         df = self.df.copy()
         for column in self.df.columns:
-            df[column] = pd.cut(df[column], bins=bins, labels=labels, right=False)
+            df[column] = pd.cut(df[column], bins=bins, labels=labels, right=True, include_lowest=False)
         
         return df
     

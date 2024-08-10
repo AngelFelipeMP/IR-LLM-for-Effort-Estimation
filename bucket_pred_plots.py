@@ -53,8 +53,12 @@ class UQV100_BUCKET_HISTOGRAM:
             
             ax = sns.histplot(annotations,  discrete=True,  zorder=5, color=palette[i])
         
-            plt.title('(' + column + ')' + ' Aggregated annotations')
+            if 'GPT' in column:
+                plt.title('(' + column + ')' + ' Predictions')
+            else:
+                plt.title('(' + column + ')' + ' Aggregated annotations')
             plt.xlabel('Categories')
+            
             plt.xticks(self.category_order)
             plt.yticks(range(0, 110, 10))
             
@@ -65,13 +69,11 @@ class UQV100_BUCKET_HISTOGRAM:
             # Ensure all categories are displayed on the x-axis
             ax.set_xlim(-0.5, len(self.category_order) - 0.5)
             
+            # save plot
+            plt.savefig(self.graphics_path + '/histogram_bucketed_'+ column +'.png', bbox_inches='tight', dpi=400)
+            
             # show plot
             plt.show()
-            
-        ##TODO: ADD the boxplot
-        ##TODO: ADD the violin plot
-        ##TODO: write the foc slides
-        ##TODO: create slides
 
         
     def main(self):

@@ -32,14 +32,14 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
         self.df = pd.concat([self.df, mas_df], axis=1)
         self.df.set_index('UQV100Id', inplace=True)
         
-        ic(self.df.head())
-        
     def histogram_s(self):
         # Set a seed for reproducibility
         np.random.seed(8)
         
         # Get the Set3 color palette
         palette = sns.color_palette("Set3", len(self.df.columns))
+        
+        unique_values_flat = sorted(pd.unique(self.df.values.ravel()))
         
         for i, column in enumerate(self.df.columns):
 
@@ -55,17 +55,24 @@ class UQV100_GOLD_LABELS_HISTOGRAM:
             ax.axvline(mean_val, color='red', linestyle='--', linewidth=0.5, label=f'Mean: {mean_val:.2f}')
             ax.axvline(median_val, color='green', linestyle='-', linewidth=0.5, label=f'Median: {median_val:.2f}')
             
-            plt.title('(' + column + ')' + ' Aggregated annotations')
-            plt.xlabel('Gold labels')
-            plt.xticks(range(sorted(set(annotations))[0], sorted(set(annotations))[-1] +1))
-            plt.yticks(range(0, 70, 10))
+            if 'GPT' in column:
+                plt.title('(' + column + ')' + ' Predictions')
+            else:
+                plt.title('(' + column + ')' + ' Aggregated annotations')
+            plt.xlabel('Values')
+            # plt.xticks(range(sorted(set(annotations))[0], sorted(set(annotations))[-1] +1))
+            plt.xticks(annotations)
+            plt.yticks(range(0, 110, 10))
             
             # Display light grey horizontal grid lines across the plot
             plt.grid(axis='y', color='lightgrey', linestyle='-', linewidth=0.7, zorder=0)
             ax.legend()
             
+            # Ensure all categories are displayed on the x-axis
+            ax.set_xlim(-0.5, len(unique_values_flat) - 0.5)
+            
             # save plot
-            plt.savefig(self.graphics_path + '/histogram_'+ column +'.png', bbox_inches='tight', dpi=300)
+            plt.savefig(self.graphics_path + '/histogram_'+ column +'.png', bbox_inches='tight', dpi=400)
             
             # show plot
             plt.show()
