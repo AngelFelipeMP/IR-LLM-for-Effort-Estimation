@@ -5,6 +5,9 @@ Step 1) clone repo
 Step 2) clone repo
     git clone https://github.com/AngelFelipeMP/UQV100-and-180-selected-TREC-topics
     cd UQV100-and-180-selected-TREC-topics
+    LINUX: curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash sudo apt-get install git-lfs
+    git lfs install
+    git lfs pull
     unzip 3180694.zip
     unzip Bailey_Peter_07_Dec_2023.zip
 
@@ -19,11 +22,36 @@ Step 4) create log directory
     cd logs
     mkdir graphics
 
-
 Step i)
+    aggregated_annotations_histogram.py 
+
+Step i+1)
     cd annotationmodeling
     uqv100_aggregating_annotations.py
     cd ..
 
-Step i+1)
+Step i+2)
     aggregating_annotations.py
+
+Step i+3)
+    gold_labels_plots.py
+
+Step i+4)
+     gold_label_statistical_test.py 
+
+Step i+5)
+    conda env config vars set OPENAI_KEY=your_OPENAI_api_key_here
+    select LLMs and prompts
+    llms_predict.py 
+
+Step i+6)
+    gold_labels_plus_llms_plots.py
+
+Step i+7)
+    gold_labels_plus_llms_statistical_test.py 
+
+Step 1+8)
+    bucketing.py
+
+Step 1+9)
+    bucket_pred_plots.py 

@@ -98,5 +98,8 @@ class ChatLLM(DATA, PROMPT):
 if __name__ == '__main__':
     for llm in tqdm(["gpt-3.5-turbo-0125", "gpt-4-turbo", "gpt-4o-2024-05-13"], desc="LLMs", position=0,ncols=100):
         ##COMMENT: Modify line below to pick the right prompt_type
-        LLmChat = ChatLLM(model=llm, prompt_type="ZeroShotBucket")
-        LLmChat.main()
+        LLmChatNumeric = ChatLLM(model=llm, prompt_type="ZeroShot")
+        LLmChatNumeric.main()
+        
+        LLmChatCategory = ChatLLM(model=llm, prompt_type="ZeroShotBucket")
+        LLmChatCategory.main()

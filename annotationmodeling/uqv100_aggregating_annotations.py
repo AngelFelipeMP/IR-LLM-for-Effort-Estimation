@@ -1,7 +1,7 @@
 import sys
 import os
 import json
-external_script_path = '/Users/angel_de_paula/repos/IR-LLM-for-Effort-Estimation'
+external_script_path =('/').join(str(os.getcwd()).split('/')[:-1])
 sys.path.append(external_script_path)
 import pandas as pd
 import numpy as np
@@ -18,6 +18,9 @@ class UQV100_GOLD_LABELS_BRAYLAN_AND_LEASE:
         self.df = pd.read_csv(UQV100_DATA_PATH + '/' + self.query_and_estimates_file, 
                                 sep='\t', 
                                 usecols=columns_average_estimates)
+        
+        #DEBUG: Limiting to first 3 rows for demo purposes
+        # self.df = self.df.head(3)
     
     def gold_labels_dataframe(self):
         self.gold_df = pd.DataFrame(self.df['UQV100Id'].unique(), columns=['UQV100Id'])

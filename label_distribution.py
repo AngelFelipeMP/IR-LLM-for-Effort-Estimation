@@ -126,7 +126,7 @@ class UQV100_QUERIES_AND_ESTIMATES:
         plt.savefig(GRAPHICS_PATH + '/boxplots_row_columns_' + threshold_str + showfliers_str + '.png')
 
         # Display the plot
-        plt.show()
+        # plt.show()
         
     def boxplot_single_row(self, threshold=False, showfliers=True):
         if threshold:
@@ -182,7 +182,7 @@ class UQV100_QUERIES_AND_ESTIMATES:
         plt.savefig(GRAPHICS_PATH + '/boxplots_sigle_row' + threshold_str + showfliers_str + '.png')
         
         # Display the plot
-        plt.show()
+        # plt.show()
     
     
     def report(self):

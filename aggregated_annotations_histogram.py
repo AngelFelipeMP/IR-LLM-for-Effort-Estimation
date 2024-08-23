@@ -178,7 +178,7 @@ class UQV100_AGGREGATED_ANNOTATIONS_HISTOGRAM:
         self.load_data()
         self.histo_all_samples()
         self.histo_until_50()
-        self.histo_boxplot()
+        self.histo_boxplot_all()
         self.histo_boxplot_until_50()
     
 if __name__ == '__main__':
