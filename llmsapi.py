@@ -11,9 +11,9 @@ client = OpenAI(api_key = os.environ.get('OPENAI_KEY'))
 
 class OpenAIAPI:
     def __init__(self):
-        self.openai_llms = ["gpt-3.5-turbo-0125"]
+        self.openai_llms = ["gpt-3.5-turbo-0125", "gpt-4-turbo", "gpt-4o-2024-05-13"]
         
-    def get_completion(self, llm):
+    def get_completion(self, llm, temperature=0, max_tokens=10):
         try:
             # To prevent maintaining context, we keep only the necessary message
             response = client.chat.completions.create(
@@ -21,8 +21,8 @@ class OpenAIAPI:
                 messages=[
                     {"role": self.llm_role, "content": self.llm_persona},
                     {"role": self.user_role, "content": self.prompt}],
-                temperature=0,  # this is the degree of randomness of the model's output
-                max_tokens = 10, ##TODO: change this to 10
+                temperature=temperature,  # this is the degree of randomness of the model's output
+                max_tokens = max_tokens,
                 top_p=1,
                 seed=42
             )
@@ -36,7 +36,7 @@ class MistralAPI:
     def __init__(self):
         self.mistral_llms = []
         
-    def get_completion(self, llm):
+    def get_completion(self, llm, temperature, max_tokens):
         pass
         
 
@@ -46,12 +46,12 @@ class llmsAPI(OpenAIAPI, MistralAPI):
         self.prompt = prompt
         self.user_role = "user"
         self.llm_role = "system"
-        self.llm_persona = "You are an expert in predicting the number of necessary documents to attend to the user's needs."
+        self.llm_persona = "You are an expert in predicting the number of necessary documents to satisfy the user's need."
         
-    def get_completation(self, llm):
+    def get_completation(self, llm, temperature, max_tokens):
         if llm in self.openai_llms:
-            return OpenAIAPI.get_completion(llm)
+            return OpenAIAPI.get_completion(llm, temperature, max_tokens)
         elif llm in self.mistral_llms:
-            return MistralAPI.get_completion(llm)
+            return MistralAPI.get_completion(llm, temperature, max_tokens)
         else:
             raise ValueError(f"The llm {llm} is not available.")
