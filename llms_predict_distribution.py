@@ -65,17 +65,30 @@ if __name__ == '__main__':
     uqv_data.count_crowdsource_annotation()
     uqv_data.add_num_annotations_to_backstories()
     
-    #Hyperparameters
-    llms_list = ["gpt-3.5-turbo-0125", "gpt-4o-2024-05-13", "gpt-4-turbo"]
-    temperature_list = [0.0, 0.5, 1.0]
-    df = uqv_data.df_data #df.loc['UQV100.010':]
-    prompt_type = "ZeroShot"
+    # #Hyperparameters
+    # llms_list = ["gpt-3.5-turbo-0125", "gpt-4o-2024-05-13", "gpt-4-turbo"]
+    # temperature_list = [0.0, 0.5, 1.0]
+    # df = uqv_data.df_data #df.loc['UQV100.010':]
+    # prompt_type = "ZeroShot"
     
     # ##DEBUG:
-    # llms_list = ["gpt-4-turbo"]
-    # temperature_list = [1]
-    # df = uqv_data.df_data.head(2) #df.loc['UQV100.010':]
-    # prompt_type = "ZeroShot"
+    llms_list = ["gpt-4-turbo"]
+    temperature_list = [0.0]
+    uqv_list = [
+    "UQV100.044", "UQV100.034", "UQV100.047", "UQV100.060", "UQV100.031", 
+    "UQV100.039", "UQV100.030", "UQV100.066", "UQV100.056", "UQV100.049", 
+    "UQV100.020", "UQV100.041", "UQV100.045", "UQV100.058", "UQV100.050", 
+    "UQV100.029", "UQV100.061", "UQV100.055", "UQV100.036", "UQV100.054", 
+    "UQV100.038", "UQV100.069", "UQV100.043", "UQV100.062", "UQV100.063", 
+    "UQV100.052", "UQV100.064", "UQV100.035", "UQV100.021", "UQV100.027", 
+    "UQV100.028", "UQV100.033", "UQV100.022", "UQV100.024", "UQV100.068", 
+    "UQV100.023", "UQV100.026", "UQV100.046", "UQV100.071", "UQV100.053", 
+    "UQV100.048", "UQV100.032", "UQV100.037", "UQV100.040", "UQV100.065", 
+    "UQV100.042", "UQV100.070", "UQV100.059", "UQV100.051", "UQV100.025", 
+    "UQV100.057", "UQV100.067"]
+    
+    df = uqv_data.df_data.loc[uqv_list]
+    prompt_type = "ZeroShot"
     
     for llm in tqdm(llms_list, desc="LLMs", position=0,ncols=100):
         for temperature in tqdm(temperature_list, desc="Temperatures", position=1, ncols=100):
